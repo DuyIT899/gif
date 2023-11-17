@@ -95,14 +95,14 @@ document.addEventListener("DOMContentLoaded", function () {
     currentGroupIndex = (currentGroupIndex + 1) % imageGroups.length;
   }
 
-  // Gọi hàm hiển thị mỗi 5 giây
+  // Gọi hàm hiển thị mỗi 3 giây
   setInterval(displayImageGroup, displayTime);
 });
 
 // Hàm thực hiện hiệu ứng fade in-out
 function fadeInOut(element) {
   let opacity = 0;
-  let direction = 1; // 1: tăng opacity, -1: giảm opacity
+  let direction = 1;
 
   const fadeInterval = setInterval(function () {
     opacity += direction * 0.1;
