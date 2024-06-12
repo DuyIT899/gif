@@ -1,10 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
   const circleImagesContainer = document.getElementById("circleImages");
-  const centerImage = document.querySelector(".center-image img");
-  const numImages = 50;
   const radius = 150;
   const imagesPerGroup = 10;
-  const displayTime = 3000; // Thời gian hiển thị mỗi nhóm hình ảnh (miligiây)
+  const displayTime = 8000; // Thời gian hiển thị mỗi nhóm hình ảnh (miligiây)
 
   const imagePaths = [
     "./img/1. KH XH NV.png",
@@ -59,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "./img/Vien NCPT.jpg",
   ];
 
-  // Chia mảng thành các nhóm có 14 hình ảnh
+  // Chia mảng thành các nhóm có 10 hình ảnh
   const imageGroups = [];
   for (let i = 0; i < imagePaths.length; i += imagesPerGroup) {
     imageGroups.push(imagePaths.slice(i, i + imagesPerGroup));
@@ -80,45 +78,19 @@ document.addEventListener("DOMContentLoaded", function () {
       circleImage.style.left = `calc(50% + ${x}px)`;
       circleImage.style.top = `calc(50% + ${y}px)`;
 
-      const imageIndex = i % imagesPerGroup;
       const image = document.createElement("img");
-      image.src = imageGroups[currentGroupIndex][imageIndex];
+      image.src = imageGroups[currentGroupIndex][i];
       image.alt = `Circle Image ${i + 1}`;
       circleImage.appendChild(image);
       circleImagesContainer.appendChild(circleImage);
-
-      // Đặt độ trễ cho hiệu ứng fade in-out
-      setTimeout(() => fadeInOut(circleImage), i * (displayTime / imagesPerGroup));
     }
 
     // Chuyển sang nhóm hình ảnh tiếp theo
     currentGroupIndex = (currentGroupIndex + 1) % imageGroups.length;
   }
+    // Hiển thị nhóm hình ảnh đầu tiên ngay lập tức
+    displayImageGroup();
 
   // Gọi hàm hiển thị mỗi 3 giây
   setInterval(displayImageGroup, displayTime);
 });
-
-// Hàm thực hiện hiệu ứng fade in-out
-function fadeInOut(element) {
-  let opacity = 0;
-  let direction = 1;
-
-  const fadeInterval = setInterval(function () {
-    opacity += direction * 0.1;
-
-    if (opacity >= 1) {
-      opacity = 1;
-      direction = -1;
-    } else if (opacity <= 0) {
-      opacity = 0;
-      direction = 1;
-    }
-
-    element.style.opacity = opacity;
-
-    if (opacity === 0 && direction === 1) {
-      clearInterval(fadeInterval);
-    }
-  }, 100); // Thời gian cập nhật hiệu ứng (miligiây)
-}
